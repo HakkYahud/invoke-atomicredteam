@@ -43,7 +43,7 @@ function Install-AtomicRedTeam {
         [string]$DownloadPath = $InstallPath,
 
         [Parameter(Mandatory = $False, Position = 2)]
-        [string]$RepoOwner = "redcanaryco",
+        [string]$RepoOwner = "HakkYahud",
 
         [Parameter(Mandatory = $False, Position = 3)]
         [string]$Branch = "master",
