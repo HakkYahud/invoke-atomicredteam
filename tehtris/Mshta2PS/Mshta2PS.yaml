@@ -1,4 +1,4 @@
-attack_technique: T002
+attack_technique: Mshta2PS
 display_name: 'Mshta into PowerShell'
 atomic_tests:
 - name: Mshta into PowerShell
