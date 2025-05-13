@@ -33,4 +33,5 @@ pre-commit run --all-files
 - Install-Module -Name powershell-yaml
 - IEX (IWR 'https://raw.githubusercontent.com/HakkYahud/invoke-atomicredteam/refs/heads/master/install-atomicredteam.ps1')
 - Install-AtomicRedTeam -getAtomics
-- 
+- Invoke-AtomicTest
+- Invoke-TehtrisTest
