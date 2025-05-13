@@ -28,3 +28,9 @@ You can also trigger pre-commit hooks manually by
 ```shell
 pre-commit run --all-files
 ```
+### How to Run
+- Open PowerShell as administrator
+- Install-Module -Name powershell-yaml
+- IEX (IWR 'https://raw.githubusercontent.com/HakkYahud/invoke-atomicredteam/refs/heads/master/install-atomicredteam.ps1')
+- Install-AtomicRedTeam -getAtomics
+- 
