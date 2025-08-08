@@ -33,6 +33,7 @@ pre-commit run --all-files
 - Install-Module -Name powershell-yaml
 - IEX (IWR 'https://raw.githubusercontent.com/HakkYahud/invoke-atomicredteam/refs/heads/master/install-atomicredteam.ps1')
 - Install-AtomicRedTeam -getAtomics
+- Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
 - cp -r tehtris ../tehtris # Copy folder tehtris in the folder invoke-atomicredteam to the parent directory
 - Invoke-AtomicTest
 - Invoke-TehtrisTest
